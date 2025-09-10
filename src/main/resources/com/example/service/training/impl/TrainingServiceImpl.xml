@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.service.training.impl.TrainingServiceRepository">
+
+  <resultMap id="TrainingUser" type="com.example.domain.training.account.TrainingUser">
+    <!-- ユーザー詳細 -->
+    <constructor>
+      <idArg column="id" javaType="int"/>
+      <arg column="user_first_name" javaType="String"/>
+      <arg column="user_last_name" javaType="String"/>
+      <arg column="join_date" javaType="java.time.LocalDate"/>
+      <arg column="gender" javaType="String"/>
+      <arg column="status" javaType="String"/>
+      <arg column="join_flag" javaType="String"/>
+    </constructor>
+  </resultMap>
+  <!-- プログラムコース -->
+  <resultMap id="ProgramCourse" type="com.example.domain.training.course.ProgramCourse">
+    <constructor>
+      <idArg column="program" javaType="String"/>
+      <arg column="correct_name" javaType="String"/>
+      <arg column="description" javaType="String"/>
+      <arg column="start_date" javaType="java.time.LocalDate"/>
+      <arg column="end_date" javaType="java.time.LocalDate"/>
+    </constructor>
+  </resultMap>
+  <!-- トレーニング受講履歴 -->
+  <resultMap id="TrainingHistory" type="com.example.domain.training.history.TrainingHistory">
+    <result property="attendance" column="apply" typeHandler="com.example.infrastructure.typeHandler.EAttendanceTypeHandler"/>
+    <association property="user" resultMap="TrainingUser" />
+    <association property="course" resultMap="ProgramCourse" />
+  </resultMap>
+
+  <sql id="selectAllUsers">
+    SELECT
+      id,
+      user_first_name,
+      user_last_name,
+      join_date,
+      gender,
+      status,
+      join_flag
+    FROM m_user
+  </sql>
+
+  <sql id="userColumns">
+    mu.id, 
+    mu.user_first_name, 
+    mu.user_last_name, 
+    mu.join_date, 
+    mu.gender, 
+    mu.status, 
+    mu.join_flag
+  </sql>
+
+  <sql id="programColumns">
+    mp.program, 
+    mp.correct_name, 
+    mp.description, 
+    mp.start_date, 
+    mp.end_date
+  </sql>
+
+  <sql id="applicationColumns">
+    ta.apply
+  </sql>
+
+  <select id="selectUsers" resultMap="TrainingUser">
+    <include refid="selectAllUsers"></include>
+  </select>
+
+  <select id="selectUsersJoinFlagEqual" resultMap="TrainingUser">
+    <include refid="selectAllUsers"></include>
+    WHERE join_flag = #{joinFlag.code}
+  </select>
+
+  <select id="selectTrainingHistory" resultMap="TrainingHistory">
+    SELECT
+      <include refid="applicationColumns" />,
+      <include refid="userColumns" />,
+      <include refid="programColumns" />
+    FROM t_application AS ta
+    INNER JOIN m_user AS mu ON ta.user_id = mu.id
+    INNER JOIN m_program AS mp ON ta.program = mp.program
+    WHERE mu.id = #{userId} AND ta.apply != 'NOT'
+  </select>
+
+</mapper>
