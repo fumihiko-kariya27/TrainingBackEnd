@@ -83,7 +83,7 @@
     FROM t_application AS ta
     INNER JOIN m_user AS mu ON ta.user_id = mu.id
     INNER JOIN m_program AS mp ON ta.program = mp.program
-    WHERE mu.id = #{userId} AND ta.apply != 'NOT'
+    WHERE mu.id = #{userId}
   </select>
 
 </mapper>
