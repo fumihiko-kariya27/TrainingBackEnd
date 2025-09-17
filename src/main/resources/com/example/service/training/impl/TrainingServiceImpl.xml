@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.service.training.impl.TrainingServiceRepository">
-
+<mapper namespace="com.example.service.training.impl.TrainingRepository">
   <resultMap id="TrainingUser" type="com.example.domain.training.account.TrainingUser">
     <!-- ユーザー詳細 -->
     <constructor>
@@ -32,18 +31,6 @@
     <association property="course" resultMap="ProgramCourse" />
   </resultMap>
 
-  <sql id="selectAllUsers">
-    SELECT
-      id,
-      user_first_name,
-      user_last_name,
-      join_date,
-      gender,
-      status,
-      join_flag
-    FROM m_user
-  </sql>
-
   <sql id="userColumns">
     mu.id, 
     mu.user_first_name, 
@@ -65,15 +52,6 @@
   <sql id="applicationColumns">
     ta.apply
   </sql>
-
-  <select id="selectUsers" resultMap="TrainingUser">
-    <include refid="selectAllUsers"></include>
-  </select>
-
-  <select id="selectUsersJoinFlagEqual" resultMap="TrainingUser">
-    <include refid="selectAllUsers"></include>
-    WHERE join_flag = #{joinFlag.code}
-  </select>
 
   <select id="selectTrainingHistory" resultMap="TrainingHistory">
     SELECT
