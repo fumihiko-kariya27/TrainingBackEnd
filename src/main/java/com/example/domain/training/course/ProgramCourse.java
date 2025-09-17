@@ -13,8 +13,9 @@ public class ProgramCourse {
 	private final String collectName;
 	@Getter
 	private final String description;
-	
+	@Getter
 	private final LocalDate applyStartDate;
+	@Getter
 	private final LocalDate applyEndDate;
 	
 	public ProgramCourse(String code, String collectName, String description, LocalDate applyStartDate, LocalDate applyEndDate) {

@@ -53,6 +53,12 @@
     ta.apply
   </sql>
 
+  <select id="selectCourse" resultMap="ProgramCourse">
+    SELECT
+      <include refid="programColumns" />
+    FROM m_program AS mp
+  </select>
+
   <select id="selectTrainingHistory" resultMap="TrainingHistory">
     SELECT
       <include refid="applicationColumns" />,
