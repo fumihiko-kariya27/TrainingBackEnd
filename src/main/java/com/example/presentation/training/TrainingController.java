@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.domain.training.course.ProgramCourse;
 import com.example.domain.training.history.TrainingHistory;
 import com.example.service.training.TrainingService;
 
@@ -16,6 +17,12 @@ public class TrainingController {
 	
 	@Autowired
 	private TrainingService service;
+	
+	@GetMapping("/training")
+	public ResponseEntity<List<ProgramCourse>> getTrainingCourse(){
+		List<ProgramCourse> course = this.service.getTrainingCourse();
+		return ResponseEntity.ok(course);
+	}
 	
 	@GetMapping("/training/history")
 	public ResponseEntity<List<TrainingHistory>> getHistories(@RequestParam("userId") String userId){
