@@ -8,9 +8,5 @@ import com.example.domain.training.history.TrainingHistory;
 
 public interface TrainingService {
 	
-	List<TrainingUser> getAllUsers();
-	
-	List<TrainingUser> getUsers(EJoinFlag flag);
-	
 	List<TrainingHistory> getHistories(String userId);
 }

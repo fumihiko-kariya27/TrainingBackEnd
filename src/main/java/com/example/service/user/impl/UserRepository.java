@@ -1,4 +1,4 @@
-package com.example.service.training.impl;
+package com.example.service.user.impl;
 
 import java.util.List;
 
@@ -7,14 +7,11 @@ import org.apache.ibatis.annotations.Param;
 
 import com.example.domain.training.account.TrainingUser;
 import com.example.domain.training.code.EJoinFlag;
-import com.example.domain.training.history.TrainingHistory;
 
 @Mapper
-public interface TrainingServiceRepository {
+public interface UserRepository {
 	
 	List<TrainingUser> selectUsers();
 	
 	List<TrainingUser> selectUsersJoinFlagEqual(@Param("joinFlag") EJoinFlag joinFlag);
-	
-	List<TrainingHistory> selectTrainingHistory(@Param("userId") String userId);
 }
