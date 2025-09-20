@@ -3,22 +3,54 @@ package com.example.presentation.advice;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.http.HttpMethod;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * コントローラに対する共通処理を定義する
  */
 @ControllerAdvice
+@Aspect
 @Slf4j
 public class ControllerAspect {
+	
+	/**
+	 * リクエスト元のIPアドレスをログ出力する
+	 */
+	@Before("execution(* com.example.presentation.*..*.*(..))")
+	public void loggingSourceIp(JoinPoint joinPoint) {
+		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+		// AOPはアプリ起動中であっても発火する可能性があるため、リクエストがある場合にのみログ出力を行う
+		if(attr == null) {
+			return;
+		}
+		String requestIp = getClientIp(attr.getRequest());
+		log.info("Method {} is called from {}", joinPoint.getSignature().toString(), requestIp);
+	}
+	
+	/**
+	 * リクエスト情報からクライアントのIPアドレスを取得する
+	 */
+	private String getClientIp(HttpServletRequest request) {
+		// リクエストがフォワードングされている場合は元のIPアドレスを取得する
+		String forwarded = request.getHeader("X-Forwarded-For");
+		if(forwarded != null && !forwarded.isEmpty()) {
+			return forwarded.split(",")[0].trim();
+		}
+		return request.getRemoteAddr();
+	}
 	
 	/**
 	 * 入力値の検証に失敗した場合に検証エラー内容を返却する
