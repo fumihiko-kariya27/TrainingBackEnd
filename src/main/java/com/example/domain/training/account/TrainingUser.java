@@ -12,18 +12,16 @@ import lombok.Getter;
 @Getter
 public class TrainingUser {
 	private final int id;
-	private final String firstName;
-	private final String lastName;
+	private final String name;
 	private final JoinDate joinDate;
 	private final EGender gender;
 	private EMemberStatus status;
 	private EJoinFlag joinFlag;
 
-	public TrainingUser(Integer id, String firstName, String lastName, LocalDate joinDate, String gender,
+	public TrainingUser(Integer id, String name, LocalDate joinDate, String gender,
 			String status, String joinFlag) {
 		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.name = name;
 		this.joinDate = new JoinDate(joinDate);
 		this.gender = EGender.getByCode(gender);
 		this.status = EMemberStatus.getByCode(status);
@@ -32,7 +30,7 @@ public class TrainingUser {
 
 	@Override
 	public String toString() {
-		return String.format("ユーザー番号[%d] : %s %s", this.id, this.firstName, this.lastName);
+		return String.format("ユーザー番号[%d] : %s", this.id, this.name);
 	}
 
 	/**
