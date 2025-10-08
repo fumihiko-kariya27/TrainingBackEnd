@@ -84,7 +84,7 @@ public class ControllerAspect {
 	public ResponseEntity<UnhandledError> handleUncatchedException(Exception e){
 		log.error(e.getMessage());
 		
-		UnhandledError exception = new UnhandledError(e);
+		UnhandledError exception = new UnhandledError();
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception);
 	}
 }

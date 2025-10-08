@@ -5,11 +5,7 @@ package com.example.presentation.advice;
  */
 class UnhandledError {
 	
-	private final Exception exception;
-	
-	UnhandledError(Exception e){
-		this.exception = e;
-	}
+	UnhandledError(){}
 	
 	public String getMessage() {
 		// 例外情報の詳細を外部に出力しないため、ここでは汎用的なメッセージの返却とする
