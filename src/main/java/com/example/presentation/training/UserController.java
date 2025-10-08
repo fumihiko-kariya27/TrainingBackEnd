@@ -1,6 +1,5 @@
 package com.example.presentation.training;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ public class UserController {
 	
 	@GetMapping("/user")
 	public ResponseEntity<List<TrainingUser>> getAllUser(@RequestParam(value = "joinFlag", required = false) String joinFlag){
-		List<TrainingUser> users = Collections.emptyList();
+		List<TrainingUser> users;
 		if(joinFlag == null || joinFlag.isBlank()) {
 			// 入会フラグが指定されてない場合は全ユーザを取得する
 			users = this.service.getAllUser();
