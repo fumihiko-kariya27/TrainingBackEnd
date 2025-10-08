@@ -7,25 +7,25 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public class JoinDate {
 
-	private final LocalDate joinDate;
+	private final LocalDate date;
 
 	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-	public JoinDate(String joinDate) {
-		this.joinDate = LocalDate.parse(joinDate, formatter);
+	public JoinDate(String date) {
+		this.date = LocalDate.parse(date, formatter);
 	}
 
-	public JoinDate(LocalDate joinDate) {
-		this.joinDate = joinDate;
+	public JoinDate(LocalDate date) {
+		this.date = date;
 	}
-	
+
 	@JsonValue
 	public String toJson() {
-		return this.joinDate.format(formatter);
+		return this.date.format(formatter);
 	}
-	
+
 	@Override
 	public String toString() {
-		return this.joinDate.format(formatter);
+		return this.date.format(formatter);
 	}
 }
