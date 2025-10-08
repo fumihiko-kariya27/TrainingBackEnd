@@ -46,7 +46,7 @@ public enum EAttendance {
 	
 	public static EAttendance getByCode(String code) {
 		return Optional.ofNullable(codeToEnum.get(code)).orElseThrow(() -> {
-			String message = String.format("受講区分が有効な値ではありません　[受講区分 : %s]", code);
+			String message = String.format("受講区分が有効な値ではありません [受講区分 : %s]", code);
 			throw new IllegalArgumentException(message);
 		});
 	}

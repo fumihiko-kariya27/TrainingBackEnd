@@ -37,11 +37,8 @@ public class ProgramCourse {
 			// 適用開始日が指定日以降である場合は適用期間外である
 			return false;
 		}
-		if(this.applyEndDate == null || !this.applyEndDate.isBefore(date)) {
-			// 適用終了日が設定されていないか、指定日以前であれば適用期間である
-			return true;
-		}
-		return false;
+		
+		return this.applyEndDate == null || !this.applyEndDate.isBefore(date);
 	}
 
 	@Override
