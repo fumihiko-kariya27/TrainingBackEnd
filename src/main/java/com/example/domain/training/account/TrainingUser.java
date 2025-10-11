@@ -2,6 +2,8 @@ package com.example.domain.training.account;
 
 import java.time.LocalDate;
 
+import org.springframework.util.StringUtils;
+
 import com.example.domain.training.code.EGender;
 import com.example.domain.training.code.EJoinFlag;
 import com.example.domain.training.code.EMemberStatus;
@@ -20,6 +22,19 @@ public class TrainingUser {
 
 	public TrainingUser(Integer id, String name, LocalDate joinDate, String gender,
 			String status, String joinFlag) {
+		// IDチェック
+		if(id <= 0) {
+			throw new IllegalArgumentException("ユーザーIDは1以上の整数を指定してください");
+		}
+		
+		// ユーザー名チェック
+		if(!StringUtils.hasText(name)) {
+			throw new IllegalArgumentException("ユーザー名が指定されていません");
+		}
+		if(!name.matches("^[a-zA-Z].+[a-zA-Z0-9]+$")) {
+			throw new IllegalArgumentException("ユーザー名は英数字のみ使用でき、英字始まりである必要があります");
+		}
+		
 		this.id = id;
 		this.name = name;
 		this.joinDate = new JoinDate(joinDate);
