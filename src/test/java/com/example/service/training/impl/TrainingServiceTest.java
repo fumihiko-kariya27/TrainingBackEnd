@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.example.domain.training.account.TrainingUser;
 import com.example.domain.training.course.EAttendance;
 import com.example.domain.training.course.ProgramCourse;
+import com.example.domain.training.course.repository.TrainingRepository;
 import com.example.domain.training.history.TrainingHistory;
 
 @ExtendWith(MockitoExtension.class)

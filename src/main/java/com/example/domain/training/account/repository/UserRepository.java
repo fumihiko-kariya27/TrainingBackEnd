@@ -1,4 +1,4 @@
-package com.example.service.user.impl;
+package com.example.domain.training.account.repository;
 
 import java.util.List;
 

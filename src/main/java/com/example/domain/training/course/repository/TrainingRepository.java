@@ -1,4 +1,4 @@
-package com.example.service.training.impl;
+package com.example.domain.training.course.repository;
 
 import java.util.List;
 

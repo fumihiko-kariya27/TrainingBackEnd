@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.domain.training.account.TrainingUser;
+import com.example.domain.training.account.repository.UserRepository;
 import com.example.domain.training.code.EJoinFlag;
 import com.example.service.user.UserService;
 

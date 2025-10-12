@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.domain.training.course.ProgramCourse;
+import com.example.domain.training.course.repository.TrainingRepository;
 import com.example.domain.training.history.TrainingHistory;
 import com.example.service.training.TrainingService;
 
