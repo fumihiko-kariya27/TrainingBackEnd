@@ -1,6 +1,7 @@
 package com.example.domain.training.account;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import org.springframework.util.StringUtils;
 
@@ -57,4 +58,26 @@ public class TrainingUser {
 	public boolean isActive() {
 		return this.joinFlag.isActive();
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		TrainingUser other = (TrainingUser) obj;
+		return id == other.id;
+	}
+	
+	
 }
