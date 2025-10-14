@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.service.user.impl.UserRepository">
+<mapper namespace="com.example.domain.training.account.repository.UserRepository">
   <resultMap id="TrainingUser" type="com.example.domain.training.account.TrainingUser">
     <!-- ユーザー詳細 -->
     <constructor>
