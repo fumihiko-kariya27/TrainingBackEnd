@@ -48,6 +48,8 @@ tasks.named('test') {
 }
 
 test {
+	classpath += files("src/test/resources")
+
     useJUnitPlatform()
     finalizedBy jacocoTestReport
 }
