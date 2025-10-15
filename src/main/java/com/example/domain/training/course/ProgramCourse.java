@@ -60,4 +60,9 @@ public class ProgramCourse {
 		ProgramCourse other = (ProgramCourse) obj;
 		return Objects.equals(code, other.code);
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("プログラムコード[%s] : %s", this.code, this.collectName);
+	}
 }

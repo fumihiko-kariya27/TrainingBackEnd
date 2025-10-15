@@ -6,8 +6,7 @@
     <!-- ユーザー詳細 -->
     <constructor>
       <idArg column="id" javaType="int"/>
-      <arg column="user_first_name" javaType="String"/>
-      <arg column="user_last_name" javaType="String"/>
+      <arg column="name" javaType="String"/>
       <arg column="join_date" javaType="java.time.LocalDate"/>
       <arg column="gender" javaType="String"/>
       <arg column="status" javaType="String"/>
@@ -33,8 +32,7 @@
 
   <sql id="userColumns">
     mu.id, 
-    mu.user_first_name, 
-    mu.user_last_name, 
+    mu.name,
     mu.join_date, 
     mu.gender, 
     mu.status, 
