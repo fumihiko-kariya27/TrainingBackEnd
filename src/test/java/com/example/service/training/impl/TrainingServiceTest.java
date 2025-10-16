@@ -13,14 +13,20 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.TestExecutionListeners;
 
 import com.example.domain.training.account.TrainingUser;
 import com.example.domain.training.course.EAttendance;
 import com.example.domain.training.course.ProgramCourse;
 import com.example.domain.training.course.repository.TrainingRepository;
 import com.example.domain.training.history.TrainingHistory;
+import com.example.test.config.CustomTestConfigurationListener;
 
 @ExtendWith(MockitoExtension.class)
+@TestExecutionListeners(
+	listeners = { CustomTestConfigurationListener.class }, 
+	mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS
+)
 public class TrainingServiceTest {
 	
 	@InjectMocks

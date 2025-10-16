@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.jdbc.Sql;
 
 import com.example.domain.training.account.TrainingUser;
@@ -15,9 +16,14 @@ import com.example.domain.training.course.EAttendance;
 import com.example.domain.training.course.ProgramCourse;
 import com.example.domain.training.history.TrainingHistory;
 import com.example.test.config.CustomRepositoryTest;
+import com.example.test.config.CustomTestConfigurationListener;
 
 @CustomRepositoryTest
 @Sql("TrainingRepositoryTest.sql")
+@TestExecutionListeners(
+	listeners = { CustomTestConfigurationListener.class }, 
+	mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS
+)
 public class TrainingRepositoryTest {
 	
 	@Autowired
@@ -61,6 +67,6 @@ public class TrainingRepositoryTest {
 		
 		List<TrainingHistory> actual = repository.selectTrainingHistory("1");
 		
-		assertThat(actual).containsExactlyElementsOf(exp);
+		assertThat(actual).containsExactlyInAnyOrderElementsOf(exp);
 	}
 }

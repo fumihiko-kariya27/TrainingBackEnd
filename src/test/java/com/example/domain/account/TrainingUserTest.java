@@ -6,12 +6,18 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.TestExecutionListeners;
 
 import com.example.domain.training.account.TrainingUser;
+import com.example.test.config.CustomTestConfigurationListener;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@TestExecutionListeners(
+	listeners = { CustomTestConfigurationListener.class }, 
+	mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS
+)
 public class TrainingUserTest {
 	
 	// TrainingUserクラスのテストケース毎の初期化パラメータクラス
