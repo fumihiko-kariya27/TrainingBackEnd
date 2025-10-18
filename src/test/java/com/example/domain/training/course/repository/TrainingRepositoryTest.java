@@ -56,14 +56,9 @@ public class TrainingRepositoryTest {
 		TrainingHistory history2 = new TrainingHistory();
 		history2.setUser(expUser);
 		history2.setAttendance(EAttendance.IN_PROCESS);
-		history2.setCourse(new ProgramCourse("AIINT", "AI Introduction", "AIの基礎を学ぶ研修です", LocalDate.of(2025, 5, 1), LocalDate.of(2025, 5, 20)));
+		history2.setCourse(new ProgramCourse("AWSCL", "AWS Cloud Basics", "AWSクラウドの基礎研修です", LocalDate.of(2025, 2, 18), LocalDate.of(2025, 3, 10)));
 		
-		TrainingHistory history3 = new TrainingHistory();
-		history3.setUser(expUser);
-		history3.setAttendance(EAttendance.IN_PROCESS);
-		history3.setCourse(new ProgramCourse("AWSCL", "AWS Cloud Basics", "AWSクラウドの基礎研修です", LocalDate.of(2025, 2, 18), LocalDate.of(2025, 3, 10)));
-		
-		List<TrainingHistory> exp = List.of(history1, history2, history3);
+		List<TrainingHistory> exp = List.of(history1, history2);
 		
 		List<TrainingHistory> actual = repository.selectTrainingHistory("1");
 		
