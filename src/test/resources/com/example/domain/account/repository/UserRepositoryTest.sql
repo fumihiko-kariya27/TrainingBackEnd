@@ -1,0 +1,9 @@
+DELETE FROM `m_user`;
+
+INSERT INTO `m_user` VALUES 
+(1,'kariya',0,'2024-04-10','SLVR',1,'2025-09-04 22:12:05','2025-09-04 22:12:05','$2a$10$frAFcjY9SR.slauMFGlMnuHs2YvXeMB3YLtFjrDKdc4fqKY9GPLXG'),
+(2,'shinoda',0,'2024-05-21','BRNZ',1,'2025-09-04 22:12:05','2025-09-04 22:12:05','$2a$10$oDJcWt/K09gx2xcnG.jc3elBydCmHjdOwhtB9wXuZegXeMqCN/b92'),
+(3,'anada',1,'2024-06-09','BRNZ',0,'2025-09-04 22:12:05','2025-09-04 22:12:05','$2a$10$7zlUYwsRqLx6/XypUVCsfelHYFffh30qhih2PfSspj87clUWPU95u'),
+(4,'iwata',0,'2024-10-18','GOLD',1,'2025-09-04 22:12:05','2025-09-04 22:12:05','$2a$10$J44xkmluqJpo4LFZarECYucjDluKe885ppoHJECY2DAi6JJIqJru2'),
+(5,'takahashi',0,'2024-08-23','SLVR',0,'2025-09-04 22:12:05','2025-09-04 22:12:05','$2a$10$pCest64uDJu.MgmfgTdobuWYVE7vwni0bESwJoyQ2W0royHuwcRuS'),
+(6,'ookita',1,'2024-11-19','GOLD',1,'2025-09-04 22:12:06','2025-09-04 22:12:06','$2a$10$WumxK5HLFk7b0trgqzk0JeoeMGho.ITTJac2ZDaHJ0IXNsN33Kc3C');

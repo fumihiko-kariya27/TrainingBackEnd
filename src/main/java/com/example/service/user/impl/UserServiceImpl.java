@@ -30,7 +30,7 @@ class UserServiceImpl implements UserService {
 	 * 入会フラグが指定された値と等しいユーザー一覧を取得する
 	 * 
 	 * @param 入会フラグ
-	 * @return 退会済みのユーザー一覧
+	 * @return 入会フラグが指定された値と等しいユーザー一覧
 	 */
 	@Override
 	public List<TrainingUser> getUsers(EJoinFlag flag) {
