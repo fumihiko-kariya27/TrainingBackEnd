@@ -1,4 +1,4 @@
-package com.example.domain.account.repository;
+package com.example.domain.training.account.repository;
 
 import static org.assertj.core.api.Assertions.*;
 

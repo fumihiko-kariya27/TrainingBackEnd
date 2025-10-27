@@ -1,4 +1,4 @@
-package com.example.domain.account;
+package com.example.domain.training.account;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -8,9 +8,15 @@ import java.time.format.DateTimeParseException;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.TestExecutionListeners;
 
 import com.example.domain.training.account.JoinDate;
+import com.example.test.config.CustomTestConfigurationListener;
 
+@TestExecutionListeners(
+	listeners = { CustomTestConfigurationListener.class }, 
+	mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS
+)
 public class JoinDateTest {
 	
 	@Test

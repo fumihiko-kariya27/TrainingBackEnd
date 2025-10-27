@@ -2,6 +2,7 @@ package com.example.domain.training.account;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 import org.springframework.util.StringUtils;
 
@@ -14,6 +15,9 @@ import lombok.Getter;
 // トレーニングサービスに登録されているユーザー情報
 @Getter
 public class TrainingUser {
+	
+	private static final Pattern USER_NAME_PATTERN = Pattern.compile("^[A-Za-z][A-Za-z0-9]*$");
+	
 	private final int id;
 	private final String name;
 	private final JoinDate joinDate;
@@ -32,7 +36,7 @@ public class TrainingUser {
 		if(!StringUtils.hasText(name)) {
 			throw new IllegalArgumentException("ユーザー名が指定されていません");
 		}
-		if(!name.matches("^[a-zA-Z].+[a-zA-Z0-9]+$")) {
+		if(!USER_NAME_PATTERN.matcher(name).matches()) {
 			throw new IllegalArgumentException("ユーザー名は英数字のみ使用でき、英字始まりである必要があります");
 		}
 		

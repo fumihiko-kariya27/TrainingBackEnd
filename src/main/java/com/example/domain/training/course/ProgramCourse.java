@@ -1,6 +1,7 @@
 package com.example.domain.training.course;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 import lombok.Getter;
@@ -19,11 +20,22 @@ public class ProgramCourse {
 	private final LocalDate applyEndDate;
 	
 	public ProgramCourse(String code, String collectName, String description, LocalDate applyStartDate, LocalDate applyEndDate) {
+		if(code == null || collectName == null || description == null || applyStartDate == null) {
+			// プログラムが開始以降いつでも受けられる場合は適用終了日が設定されないため、nullチェックは行わない
+			throw new NullPointerException("必須初期化パラメータにnullが含まれています");
+		}
+		
+		if(applyEndDate != null && applyStartDate.isAfter(applyEndDate)) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+			String msg = String.format("開始日が終了日より未来の日程で設定されています 開始日:%s, 終了日:%s", applyStartDate.format(formatter), applyEndDate.format(formatter));
+			throw new IllegalArgumentException(msg);
+		}
+		
 		this.code = code;
 		this.collectName = collectName;
 		this.description = description;
 		this.applyStartDate = applyStartDate;
-		this.applyEndDate = applyEndDate;
+		this.applyEndDate =  applyEndDate != null ? applyEndDate : LocalDate.MAX;
 	}
 	
 	/**
@@ -37,8 +49,7 @@ public class ProgramCourse {
 			// 適用開始日が指定日以降である場合は適用期間外である
 			return false;
 		}
-		
-		return this.applyEndDate == null || !this.applyEndDate.isBefore(date);
+		return !this.applyEndDate.isBefore(date);
 	}
 
 	@Override
