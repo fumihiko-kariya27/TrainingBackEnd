@@ -10,4 +10,6 @@ public interface UserService {
 	List<TrainingUser> getAllUser();
 	
 	List<TrainingUser> getUsers(EJoinFlag flag);
+	
+	TrainingUser getUserByName(String name);
 }

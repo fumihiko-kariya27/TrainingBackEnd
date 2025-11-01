@@ -11,6 +11,7 @@
       <arg column="gender" javaType="String"/>
       <arg column="status" javaType="String"/>
       <arg column="join_flag" javaType="String"/>
+      <arg column="password" javaType="String"/>
     </constructor>
   </resultMap>
 
@@ -21,7 +22,8 @@
       join_date,
       gender,
       status,
-      join_flag
+      join_flag,
+      password
     FROM m_user
   </sql>
 
@@ -32,5 +34,10 @@
   <select id="selectUsersJoinFlagEqual" resultMap="TrainingUser">
     <include refid="selectAllUsers"></include>
     WHERE join_flag = #{joinFlag.code}
+  </select>
+
+  <select id="selectByName" resultMap="TrainingUser">
+    <include refid="selectAllUsers"></include>
+    WHERE name = #{name}
   </select>
 </mapper>

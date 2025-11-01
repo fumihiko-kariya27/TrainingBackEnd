@@ -1,4 +1,4 @@
-package com.example.presentation.training;
+package com.example.presentation.user;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class UserController {
 	private UserService service;
 	
 	@GetMapping("/user")
-	public ResponseEntity<List<TrainingUser>> getAllUser(@RequestParam(value = "joinFlag", required = false) String joinFlag){
+	public ResponseEntity<List<UserResponse>> getAllUser(@RequestParam(value = "joinFlag", required = false) String joinFlag){
 		List<TrainingUser> users;
 		if(joinFlag == null || joinFlag.isBlank()) {
 			// 入会フラグが指定されてない場合は全ユーザを取得する
@@ -30,6 +30,7 @@ public class UserController {
 			EJoinFlag flag = EJoinFlag.getByCode(joinFlag);
 			users = this.service.getUsers(flag);
 		}
-		return ResponseEntity.ok(users);
+		List<UserResponse> response = users.stream().map(user -> new UserResponse(user)).toList();
+		return ResponseEntity.ok(response);
 	}
 }

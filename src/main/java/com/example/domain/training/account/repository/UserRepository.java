@@ -14,4 +14,6 @@ public interface UserRepository {
 	List<TrainingUser> selectUsers();
 	
 	List<TrainingUser> selectUsersJoinFlagEqual(@Param("joinFlag") EJoinFlag joinFlag);
+	
+	TrainingUser selectByName(@Param("name") String name);
 }

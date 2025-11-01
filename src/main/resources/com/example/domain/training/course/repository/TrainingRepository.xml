@@ -11,6 +11,7 @@
       <arg column="gender" javaType="String"/>
       <arg column="status" javaType="String"/>
       <arg column="join_flag" javaType="String"/>
+      <arg column="password" javaType="String"/>
     </constructor>
   </resultMap>
   <!-- プログラムコース -->
@@ -36,7 +37,8 @@
     mu.join_date, 
     mu.gender, 
     mu.status, 
-    mu.join_flag
+    mu.join_flag,
+    mu.password
   </sql>
 
   <sql id="programColumns">
