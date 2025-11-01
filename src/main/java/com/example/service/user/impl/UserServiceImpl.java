@@ -37,4 +37,9 @@ class UserServiceImpl implements UserService {
 		return this.repository.selectUsersJoinFlagEqual(flag);
 	}
 
+	@Override
+	public TrainingUser getUserByName(String name) {
+		return this.repository.selectByName(name);
+	}
+
 }

@@ -24,9 +24,15 @@ public class TrainingUser {
 	private final EGender gender;
 	private EMemberStatus status;
 	private EJoinFlag joinFlag;
-
+	private final String password;
+	
 	public TrainingUser(Integer id, String name, LocalDate joinDate, String gender,
 			String status, String joinFlag) {
+		this(id, name, joinDate, gender, status, joinFlag, "");
+	}
+
+	public TrainingUser(Integer id, String name, LocalDate joinDate, String gender,
+			String status, String joinFlag, String password) {
 		// IDチェック
 		if(id <= 0) {
 			throw new IllegalArgumentException("ユーザーIDは1以上の整数を指定してください");
@@ -46,6 +52,7 @@ public class TrainingUser {
 		this.gender = EGender.getByCode(gender);
 		this.status = EMemberStatus.getByCode(status);
 		this.joinFlag = EJoinFlag.getByCode(joinFlag);
+		this.password = password;
 	}
 
 	@Override
