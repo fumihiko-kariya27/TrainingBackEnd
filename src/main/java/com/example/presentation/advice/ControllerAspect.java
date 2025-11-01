@@ -8,10 +8,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.LockedException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -79,15 +75,6 @@ public class ControllerAspect {
 		cause.put("method", e.getHttpMethod().name());
 		cause.put("path", e.getResourcePath());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cause);
-	}
-	
-	@ExceptionHandler(value = {BadCredentialsException.class, UsernameNotFoundException.class, DisabledException.class, LockedException.class})
-	public ResponseEntity<Map<String, String>> invalidCredentails(Exception e){
-		log.error(e.getMessage());
-		
-		Map<String, String> cause = new HashMap<>();
-		cause.put("message", "ユーザー名もしくはパスワードが正しくありません");
-		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(cause);
 	}
 	
 	/**

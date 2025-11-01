@@ -1,10 +1,15 @@
 package com.example.auth.jwt;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
@@ -20,6 +25,7 @@ import java.util.function.Function;
 
 @Component
 @Profile("default")
+@Slf4j
 class JwtTokenProvider implements TokenProvider {
 
     @Value("${jwt.secret}")
@@ -59,9 +65,14 @@ class JwtTokenProvider implements TokenProvider {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(authToken);
             return true;
-        } catch (Exception ex) {
-            // 例: SignatureException, MalformedJwtException, ExpiredJwtException, UnsupportedJwtException, IllegalArgumentException
-            // ログ出力推奨
+        } catch (SignatureException ex) {
+            log.warn("Invalid JWT Signature : {}", ex.getMessage());
+        } catch(MalformedJwtException ex) {
+        	log.warn("Invalid JWT Token : {}", ex.getMessage());
+        } catch(ExpiredJwtException ex) {
+        	log.info("Expired JWT Token : {}", ex.getMessage());
+        } catch(UnsupportedJwtException ex) {
+        	log.warn("Unsupported JWT Token : {}", ex.getMessage());
         }
         return false;
     }
