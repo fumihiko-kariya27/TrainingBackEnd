@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.auth.TokenProvider;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Map;
 
 @RestController
+@Slf4j
 public class LoginController {
 
     @Autowired
@@ -29,6 +32,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+    	log.info("Login Request recieved : " + loginRequest);
     	
     	try {
     		Authentication authentication = authenticationManager.authenticate(
@@ -39,7 +43,8 @@ public class LoginController {
     	    );
 
     	    String jwt = tokenProvider.generateToken(authentication);
-    	    return ResponseEntity.ok(Map.of("accessToken", jwt));
+    	    String userName = tokenProvider.getUsernameFrom(jwt);
+    	    return ResponseEntity.ok(Map.of("user", userName, "accessToken", jwt));
     	} catch(BadCredentialsException | UsernameNotFoundException | DisabledException | LockedException e) {
     		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Invalid credentials"));
     	}
