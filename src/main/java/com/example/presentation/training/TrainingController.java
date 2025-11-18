@@ -19,14 +19,18 @@ public class TrainingController {
 	private TrainingService service;
 	
 	@GetMapping("/training")
-	public ResponseEntity<List<ProgramCourse>> getTrainingCourse(){
+	public ResponseEntity<List<ProgramCourseResponse>> getTrainingCourse(){
 		List<ProgramCourse> course = this.service.getTrainingCourse();
-		return ResponseEntity.ok(course);
+		
+		List<ProgramCourseResponse> response = course.stream().map(entry -> new ProgramCourseResponse(entry)).toList();
+		return ResponseEntity.ok(response);
 	}
 	
 	@GetMapping("/training/history")
-	public ResponseEntity<List<TrainingHistory>> getHistories(@RequestParam("userId") String userId){
+	public ResponseEntity<List<TrainingHistoryResponse>> getHistories(@RequestParam("userId") String userId){
 		List<TrainingHistory> histories = this.service.getHistories(userId);
-		return ResponseEntity.ok(histories);
+		
+		List<TrainingHistoryResponse> response = histories.stream().map(history -> new TrainingHistoryResponse(history)).toList();
+		return ResponseEntity.ok(response);
 	}
 }
