@@ -21,6 +21,7 @@ import com.example.auth.TokenProvider;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.List;
 import java.util.function.Function;
 
 @Component
@@ -46,9 +47,12 @@ class JwtTokenProvider implements TokenProvider {
         UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
+        
+        List<String> roles = authentication.getAuthorities().stream().map(auth -> auth.getAuthority()).toList();
 
         return Jwts.builder()
             .setSubject(userPrincipal.getUsername())
+            .claim("roles", roles)
             .setIssuedAt(new Date())
             .setExpiration(expiryDate)
             .signWith(key, SignatureAlgorithm.HS256)

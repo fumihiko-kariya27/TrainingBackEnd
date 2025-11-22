@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.domain.training.account.repository.RoleMapper">
+    <select id="selectRoleByUserId">
+        SELECT
+            m_role.name
+        FROM m_role
+        INNER JOIN t_roles ON m_role.id = t_roles.role_id
+        INNER JOIN m_user ON t_roles.user_id = m_user.id
+        WHERE m_user.id = #{id};
+    </select>
+</mapper>
