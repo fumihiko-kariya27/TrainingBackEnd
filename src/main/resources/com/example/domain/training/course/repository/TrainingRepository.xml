@@ -2,18 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.domain.training.course.repository.TrainingRepository">
-  <resultMap id="TrainingUser" type="com.example.domain.training.account.TrainingUser">
-    <!-- ユーザー詳細 -->
-    <constructor>
-      <idArg column="id" javaType="int"/>
-      <arg column="name" javaType="String"/>
-      <arg column="join_date" javaType="java.time.LocalDate"/>
-      <arg column="gender" javaType="String"/>
-      <arg column="status" javaType="String"/>
-      <arg column="join_flag" javaType="String"/>
-      <arg column="password" javaType="String"/>
-    </constructor>
-  </resultMap>
   <!-- プログラムコース -->
   <resultMap id="ProgramCourse" type="com.example.domain.training.course.ProgramCourse">
     <constructor>
@@ -27,7 +15,7 @@
   <!-- トレーニング受講履歴 -->
   <resultMap id="TrainingHistory" type="com.example.domain.training.history.TrainingHistory">
     <result property="attendance" column="apply" typeHandler="com.example.infrastructure.typeHandler.EAttendanceTypeHandler"/>
-    <association property="user" resultMap="TrainingUser" />
+    <association property="user" resultMap="com.example.domain.training.account.repository.UserRepository.TrainingUser" />
     <association property="course" resultMap="ProgramCourse" />
   </resultMap>
 
@@ -70,4 +58,29 @@
     WHERE mu.id = #{userId}
   </select>
 
+  <select id="selectProgramCodeEqual" resultMap="ProgramCourse">
+    SELECT
+      <include refid="programColumns" />
+    FROM m_program AS mp
+    WHERE program = #{code}
+  </select>
+
+  <insert id="insert" parameterType="com.example.domain.training.course.ProgramCourse">
+    INSERT INTO m_program(
+      program,
+      correct_name,
+      description,
+      start_date,
+      end_date,
+      created_at
+    )
+    VALUES(
+      #{program.code},
+      #{program.collectName},
+      #{program.description},
+      #{program.applyStartDate},
+      #{program.applyEndDate},
+      CURRENT_TIMESTAMP
+    )
+  </insert>
 </mapper>

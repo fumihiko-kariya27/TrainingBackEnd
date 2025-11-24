@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.domain.exception.training.TrainingAlreadyRegisteredException;
 import com.example.domain.training.course.ProgramCourse;
 import com.example.domain.training.course.repository.TrainingRepository;
 import com.example.domain.training.history.TrainingHistory;
 import com.example.service.training.TrainingService;
 
 @Service
-@Transactional(rollbackFor = Exception.class)
 class TrainingServiceImpl implements TrainingService {
 	
 	@Autowired
@@ -37,5 +37,17 @@ class TrainingServiceImpl implements TrainingService {
 	@Override
 	public List<TrainingHistory> getHistories(String userId) {
 		return this.repository.selectTrainingHistory(userId);
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void createNew(ProgramCourse course) throws TrainingAlreadyRegisteredException {
+		ProgramCourse alreadyCreated = repository.selectProgramCodeEqual(course.getCode());
+		if(alreadyCreated != null) {
+			//新規登録対象のプログラムコードが既に存在している場合は登録できないため、異常終了扱いとする
+			throw new TrainingAlreadyRegisteredException(String.format("プログラムコード[%s]は既に登録されています", course.getCode()));
+		}
+		
+		repository.insert(course);
 	}
 }
