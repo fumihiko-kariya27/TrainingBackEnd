@@ -10,4 +10,6 @@ public interface TrainingService {
 	List<ProgramCourse> getTrainingCourse();
 	
 	List<TrainingHistory> getHistories(String userId);
+	
+	void createNew(ProgramCourse course);
 }

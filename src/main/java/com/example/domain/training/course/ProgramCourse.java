@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
+import com.example.presentation.training.TrainingCreateRequest;
+
 import lombok.Getter;
 
 public class ProgramCourse {
@@ -36,6 +38,15 @@ public class ProgramCourse {
 		this.description = description;
 		this.applyStartDate = applyStartDate;
 		this.applyEndDate =  applyEndDate != null ? applyEndDate : LocalDate.MAX;
+	}
+	
+	public ProgramCourse(TrainingCreateRequest request) {
+		// requestクラスは内部でバリデーションを実装しているため、コンストラクタでフィールドの状態をチェックしない
+		this.code = request.getProgramCode();
+		this.collectName = request.getCorrectName();
+		this.description = request.getDescription();
+		this.applyStartDate = request.getStartDate();
+		this.applyEndDate = request.getEndDate();
 	}
 	
 	/**

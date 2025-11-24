@@ -6,6 +6,7 @@ import java.util.Map;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -75,6 +76,18 @@ public class ControllerAspect {
 		cause.put("method", e.getHttpMethod().name());
 		cause.put("path", e.getResourcePath());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cause);
+	}
+	
+	/**
+	 * DBエラーが発生下場合に500を返却する
+	 */
+	@ExceptionHandler(value = DataAccessException.class)
+	public ResponseEntity<Map<String, String>> dbError(DataAccessException e){
+		log.error(e.getMessage());
+		
+		Map<String, String> cause = new HashMap<>();
+		cause.put("DB Error", e.getLocalizedMessage());
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(cause);
 	}
 	
 	/**

@@ -14,4 +14,8 @@ public interface TrainingRepository {
 	List<ProgramCourse> selectCourse();
 	
 	List<TrainingHistory> selectTrainingHistory(@Param("userId") String userId);
+	
+	ProgramCourse selectProgramCodeEqual(@Param("code") String code);
+	
+	int insert(@Param("program") ProgramCourse course);
 }
