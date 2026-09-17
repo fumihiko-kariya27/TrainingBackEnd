@@ -1,0 +1,7 @@
+on: [push]
+
+jobs:
+  echo-hello-world:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "this is sample github actions"
